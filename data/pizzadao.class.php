@@ -25,7 +25,28 @@ class PizzaDao extends ProductDao {
         }else{
             print_r($stmt->errorInfo());
         }
-        
+    }
+    
+    public static function geefAlleSoortenPizzas(){
+        /*
+         * return array van Pizza(), alle soorten
+         */
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $res = array();
+        $sql = "Select producten.id as prodid, naam, producten.omschrijving as om, prijs from producten inner join categorien on categorieid = categorien.id where categorien.omschrijving = 'Pizza'";   
+        $stmt = $dbh->prepare($sql);
+        if($stmt->execute()){
+            $dataSet = $stmt->fetchAll();
+            foreach($dataSet as $rij){
+                $pizza = new Pizza($rij["prodid"], $rij["naam"], $rij["prijs"]);
+                $pizza->setOmschrijving($rij["om"]);
+                
+                array_push($res, $pizza);
+            }
+            return $res;
+        }else{
+            print_r($stmt->errorInfo());
+        }
     }
 }
 ?>

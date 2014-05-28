@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <meta charset="uft-8" />
+        <title>De PizzaShop!</title>
+        <link rel="stylesheet" href="presentation/css/normalize.css" />
+        <link rel="stylesheet" href="presentation/css/bootstrap.min.css" />
+    </head>
+    <body>
+        <h1>Welkom bij de PizzaShop!</h1>
+        <ul>
+        {% for klant in klantenLijst %}
+            <li>{{klant.naam}}, {{klant.vnaam}}</li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>

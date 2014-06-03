@@ -36,6 +36,22 @@ class ExtraDao extends ProductDao {
             print($stmt->errorInfo());
         }
     }
+    
+    public static function getAllExtraIds(){
+        //return arr of ints
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $res = array();
+        $sql = "Select producten.id as extraid from producten inner join categorien on categorieid = categorien.id where categorien.omschrijving = 'Extra'";
+        $stmt = $dbh->prepare($sql);
+        if($stmt->execute()){
+            $dataSet = $stmt->fetchAll();
+            foreach($dataSet as $rij){
+                array_push($res,$rij["extraid"]);
+            }
+            return $res;
+        }else{
+            print($stmt->errorInfo());
+        }
+    }
 }
-
 ?>

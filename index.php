@@ -3,10 +3,10 @@
 require_once("libs/Twig/Autoloader.php");
 require_once("business/klantservice.class.php");
 require_once("entities/pizza.class.php");
-require_once("data/productdao.class.php");
+require_once("data/pizzadao.class.php");
 
 
-$tester = ProductDao::geefProductMetId(1);
+$tester = PizzaDao::geefAlleSoortenPizzas();
 
 Twig_Autoloader::register();
 

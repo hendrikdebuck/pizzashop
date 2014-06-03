@@ -1,0 +1,31 @@
+{% if nieuwePizza is defined %}
+<div class="productgroep">
+    <div class="row">
+        <div class="col-md-2">{{nieuwePizza.naam}}</div>
+    </div>
+    <div class="clearFix">
+        <div class="row clearFix">
+            <form class="form-inline" method="post">
+                {% for extra in extras %}
+                    <div class="col-md-3 floating">{{ extra.naam }} (&euro; {{ extra.basisPrijs }}) <input type="number" name="{{ extra.id }}" class="smallinput" /></div>
+                {% endfor %}
+                <input type="hidden" name="pizzaId" value="{{nieuwePizza.id}}" />
+                <input type="submit" name="extrastoevoegen" value="Toevoegen" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+<div class="productgroep">
+    {% for pizza in pizzaLijst %}
+        <div class="row">
+            <div class="col-md-2">{{ pizza.naam }}</div>
+            <div class="col-md-6">{{ pizza.omschrijving }}</div>
+            <div class="col-md-1">&euro; {{ pizza.basisPrijs }}</div>
+            <div class="col-md-1">{% if pizza.korting > 0 %} {{ pizza.korting }} {% endif %}</div>
+            <div class="col-md-2"><a href="?bestel=pizza&pizzaId={{ pizza.id }}">Bestel hier!</a></div>
+        </div>
+    {% endfor %}
+</div>

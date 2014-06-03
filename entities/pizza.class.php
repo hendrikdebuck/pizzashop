@@ -14,5 +14,10 @@ class Pizza extends Product {
     public function setArrExtras($arrExtras) {
         $this->arrExtras = $arrExtras;
     }
+    public function voegExtraToe($extra){
+        $temp = $this->getArrExtras();
+        array_push($temp, $extra);
+        $this->setArrExtras($temp);
+    }
 }
 ?>

@@ -1,0 +1,54 @@
+
+body{
+    font-size: 150%;
+}
+
+.productgroep{
+    width: 95%;
+    border: black solid 1px;
+}
+.maincontainer{
+    margin: 0 auto;
+    width: 80%;
+}
+.loginVenster{
+    
+    float: right;
+}
+.hoofding{
+    width: 60%;
+    margin-bottom: 3em;
+    padding-left: 3em;
+}
+.hoofding .loginVenster{
+    display: inline-block;
+}
+.footer{
+    text-align: center;
+}
+.floating{
+    float: left;
+}
+.extracol{
+    width: 15%;
+}
+.smallinput{
+    width: 2em;
+}
+
+
+/* CF */
+
+.cf {
+    clear:both;
+}
+.clearFix:before, .clearFix:after{
+    content: " ";
+    display: table;
+}
+.clearFix:after{
+    clear: both;
+}
+.clearFix{
+    *zoom: 1;
+}

@@ -20,5 +20,14 @@ if(isset($_SESSION["bestelling"])){
 }else{
     print("not set");
 }
+
+if(isset($_SESSION["klant"])){
+    print("klant set");
+    print("<pre>");
+    print_r(unserialize($_SESSION["klant"]));
+    print("</pre>");
+}else{
+    print("klant not set");
+}
 ?>
 

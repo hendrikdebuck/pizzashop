@@ -9,7 +9,11 @@ body{
 }
 .maincontainer{
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
+}
+.contentgroup{
+    width: 85%;
+    float: left;
 }
 .loginVenster{
     
@@ -25,6 +29,8 @@ body{
 }
 .footer{
     text-align: center;
+    margin-top: 1em;
+    float: none;
 }
 .floating{
     float: left;
@@ -34,6 +40,17 @@ body{
 }
 .smallinput{
     width: 2em;
+}
+.winkelmandje{
+    border: black solid 1px;
+    width: 15%;
+    float:right;
+}
+.naarrechts{
+    text-align: right;
+}
+.extralijn{
+    margin-left: 0.5em;
 }
 
 

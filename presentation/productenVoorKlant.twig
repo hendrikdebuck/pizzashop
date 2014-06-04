@@ -1,3 +1,10 @@
+{% extends "base.twig" %}
+
+{% block mand %}
+    {{ parent() }}
+{% endblock mand %}
+
+{% block content %}
 {% if nieuwePizza is defined %}
 <div class="productgroep">
     <div class="row">
@@ -29,3 +36,21 @@
         </div>
     {% endfor %}
 </div>
+
+{% for cat in catLijst %}
+    <div class="productgroep">
+        {% for product in productLijst %}
+            {% if product.catOmschrijving == cat %}
+                <div class="row">
+                    <div class="col-md-2">{{ product.naam }}</div>
+                    <div class="col-md-6">{{ product.omschrijving }}</div>
+                    <div class="col-md-1">&euro; {{ product.basisPrijs }}</div>
+                    <div class="col-md-1">{% if product.korting > 0 %} {{ product.korting }} {% endif %}</div>
+                    <div class="col-md-2"><a href="?bestel=product&productId={{ product.id }}">Bestel hier!</a></div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta charset="uft-8" />
+        <title>De PizzaShop</title>
+        <link rel="stylesheet" href="presentation/css/normalize.css" />
+        <link rel="stylesheet" href="presentation/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="presentation/css/pizza.css" />
+    </head>
+    <body>
+        <div class="maincontainer clearFix">
+            {% include "loginWindow.twig" %}
+            <div class=hoofding>
+                <h1>De pizzashop!</h1>
+            </div>
+                
+{% block mand %}
+<div class="winkelmandje">
+    <div class="winkelhoofding">Winkelmandje:</div>
+    <div class="winkelinhoud">
+        {% if mandje is defined and mandje != "" %}
+            {% for product in mandje.producten %}
+                <div class="row">
+                    <div class="col-md-8">{{product.naam}}</div>
+                    <div class="col-md-3 naarrechts">{{product.basisPrijs}}</div>
+                    <div class="col-md-1"></div>
+                </div>
+                {% if product.ArrExtras is defined and product.arrExtras != empty %}
+                    {% for extra in product.ArrExtras  %}
+                        <div class="extralijn">{{extra.naam}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="winkellijn">Winkelmandje is leeg!</div>
+        {% endif %}
+    </div>
+    <div class="row som">
+        <div class="col-md-8"></div><div class="col-md-3 naarrechts">SOM</div>
+    </div>
+</div>
+{% endblock mand %}
+
+<div class="contentgroup">
+{% block content %}
+{% endblock content %}
+</div>
+                
+       <!-- endblock -->                     
+        </div>
+        <div class="maincontainer footer">
+            Dit is een fictieve winkel in kader van de php-ontwikkelaar opleiding van de VDAB. Bestelling worden niet uitgevoerd.
+        </div>
+    </body>
+</html>

@@ -20,44 +20,65 @@ if(isset($_GET["bestel"]) && $_GET["bestel"] == "pizza"){
         //print_r($nieuwePizza);
     }
 }
+if(isset($_GET["bestel"]) && $_GET["bestel"] == "product"){
+    if(isset($_GET["productId"])){
+        //nieuw product toevoegen, anders dan een pizza
+        if(!isset($_SESSION["bestelling"])){
+            //print("leeg mandje");
+            $bestelling = new Winkelmand();
+        }else{
+            //print("al een mandje");
+            $bestelling = unserialize($_SESSION["bestelling"]);
+            //$bestelling->voegProductToe();
+        }
+        $nieuwProduct = ProductDao::geefProductMetId($_GET["productId"]);
+        $bestelling->voegProductToe($nieuwProduct);
+        $_SESSION["bestelling"] = serialize($bestelling);
+    }
+}
 //de gewenste/ongewenste extra zijn (niet)geselecteerd
 if(isset($_POST["pizzaId"]) && isset($_POST["extrastoevoegen"]) && $_POST["extrastoevoegen"] == "Toevoegen"){
     if(!isset($_SESSION["bestelling"])){
-        print("leeg mandje");
+        //print("leeg mandje");
         $bestelling = new Winkelmand();
-        $nieuwePizza = PizzaDao::getPizzaById($_POST["pizzaId"]);
-        $extraids = ExtraDao::getAllExtraIds();
-        //print_r($extraids);
-        //overloop alle mogelijke extras en kijk hoeveel ze erbij gegooid moeten worden
-        foreach($extraids as $exId){
-            if(isset($_POST[$exId]) && (int)$_POST[$exId] != 0){
-                //print("id" + $exId);
-                $extrObjToeTeVoegen = ExtraDao::getExtraById($exId);
-                $nieuwePizza->voegExtraToe($extrObjToeTeVoegen);
-            }
-        }
-        $bestelling->voegProductToe($nieuwePizza);
-//        print("<pre>");
-//        print_r($bestelling);
-//        print("</pre>");
-        $ser = serialize($bestelling);
-        //print($ser);
-        $_SESSION["bestelling"] = $ser;
-
     }else{
+        //print("al een mandje");
         $bestelling = unserialize($_SESSION["bestelling"]);
         //$bestelling->voegProductToe();
     }
+    $nieuwePizza = PizzaDao::getPizzaById($_POST["pizzaId"]);
+    $extraids = ExtraDao::getAllExtraIds();
+    //print_r($extraids);
+    //overloop alle mogelijke extras en kijk hoeveel ze erbij gegooid moeten worden
+    foreach($extraids as $exId){
+        if(isset($_POST[$exId]) && (int)$_POST[$exId] != 0){
+            //print("id" + $exId);
+            $extrObjToeTeVoegen = ExtraDao::getExtraById($exId);
+            $nieuwePizza->voegExtraToe($extrObjToeTeVoegen);
+        }
+    }
+    $bestelling->voegProductToe($nieuwePizza);
+//        print("<pre>");
+//        print_r($bestelling);
+//        print("</pre>");
+    $ser = serialize($bestelling);
+    //print($ser);
+    $_SESSION["bestelling"] = $ser;
 }
 if(isset($_SESSION["bestelling"])){
-    //$testbest = new Winkelmand();
-    $testunser = unserialize($_SESSION["bestelling"]);
-    print("<pre>");
-    print_r($testunser);
-    print("</pre>");
+    $mandje = unserialize($_SESSION["bestelling"]);
+    //print("<pre>");
+    //print_r($testunser);
+    //print("</pre>");
+}else{
+    $mandje = null;
 }
 //globals
 $lijstPizzas = PizzaDao::geefAlleSoortenPizzas();
+$lijstAndere = ProductDao::geefAlleProductenTenzijExtraOfPizza();
+
+$lijstCats = ProductDao::geefAlleCategorienTenzijExtraOfPizza();
+//print_r($lijstCats);
 Twig_Autoloader::register();
 
 $loader = new Twig_Loader_Filesystem("presentation");
@@ -65,9 +86,9 @@ $twig = new Twig_Environment($loader);
 $pre = $twig->render("topHeader.twig");
 $end = $twig->render("bottomCloser.twig");
 if(isset($nieuwePizza)){
-    $view = $twig->render("productenVoorKlant.twig", array("pizzaLijst" => $lijstPizzas, "nieuwePizza" => $nieuwePizza, "extras" => $extras));
+    $view = $twig->render("productenVoorKlant.twig", array("pizzaLijst" => $lijstPizzas, "productLijst" => $lijstAndere, "catLijst" => $lijstCats, "nieuwePizza" => $nieuwePizza, "extras" => $extras, "mandje" => $mandje));
 }else{
-    $view = $twig->render("productenVoorKlant.twig", array("pizzaLijst" => $lijstPizzas));
+    $view = $twig->render("productenVoorKlant.twig", array("pizzaLijst" => $lijstPizzas, "productLijst" => $lijstAndere, "catLijst" => $lijstCats, "mandje" => $mandje));
 }
 print($pre);
 print($view);

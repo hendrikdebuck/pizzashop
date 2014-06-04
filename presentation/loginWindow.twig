@@ -1,11 +1,11 @@
 {% block loginBlock %}
 <div class="loginVenster">
-    <form class="form-inline">
+    <form class="form-inline" action="login.php" method="post">
         <div class="form-group">
-            <input type="text" id="emailinput" class="form-control" placeholder="emailadres" />
+            <input type="text" id="emailinput" name ="emailinput" class="form-control" placeholder="emailadres" />
         </div>
         <div class="form-group">
-            <input type="password" id="pwinput" class="form-control" placeholder="wachtwoord" />
+            <input type="password" id="pwinput" name="pwinput" class="form-control" placeholder="wachtwoord" />
         </div>
         <div class="form-group">
             <input type="submit" name="inlogknop" class="form-control" value="Aanmelden" />

@@ -19,6 +19,7 @@ if(isset($_POST["inlogknop"]) && $_POST["inlogknop"] == "Aanmelden"){
         }else{
             print("login NOK");
         }
+        header("location: toonPizzas.php");
     }
 }
 

@@ -1,0 +1,158 @@
+{% extends "base.twig" %}
+
+{% block mand %}
+    {{ parent() }}
+{% endblock mand %}
+
+{% block content %}
+    <form class="form-horizontal" method="post">
+        <div class="form-group">
+            <label for="naam" class="col-md-3 control-label">Familienaam:* </label>
+            <div class="col-md-4">
+                <input type="text" name="txtnaam" id="naam" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="vnaam" class="col-md-3 control-label">Voornaam:* </label>
+            <div class="col-md-4">
+                <input type="text" name="txtvnaam" id="vnaam" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtvnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="adres" class="col-md-3 control-label">Adres:* </label>
+            <div class="col-md-4">
+                <input type="text" name="txtadres" id="adres" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtadres" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="postcode" class="col-md-3 control-label">Postcode:* </label>
+            <div class="col-md-4">
+                <input type="text" name="txtpostcode" id="postcode" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="gemeente" class="col-md-3 control-label">Gemeente:* </label>
+            <div class="col-md-4">
+                <input type="text" name="txtgemeente" id="gemeente" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="btw" class="col-md-3 control-label">BTW nr: </label>
+            <div class="col-md-4">
+                <input type="text" name="txtbtw" id="btw" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="tel" class="col-md-3 control-label">Telefoon nr:* </label>
+            <div class="col-md-4">
+                <input type="text" name="txttel" id="tel" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-md-3 control-label">Email:* </label>
+            <div class="col-md-4">
+                <input type="text" name="txtemail" id="email" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="login" class="col-md-3 control-label">Gebruikersnaam:* </label>
+            <div class="col-md-4">
+                <input type="text" name="txtlogin" id="login" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="pass1" class="col-md-3 control-label">Wachtwoord:* </label>
+            <div class="col-md-4">
+                <input type="password" name="txtpw1" id="pass1" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="pass2" class="col-md-3 control-label">Bevestig wachtwoord:* </label>
+            <div class="col-md-4">
+                <input type="password" name="txtpw2" id="pass2" class="form-control" />
+            </div>
+            {% for fout in fouten %}
+                {%if fout.iden == "txtnaam" %}
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-3">
+                <input type="submit" name="registratieToevoegen" class="form-control" value="Registreer" />
+            </div>
+        </div>
+    </form>
+{% endblock content %}

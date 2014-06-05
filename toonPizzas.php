@@ -73,6 +73,11 @@ if(isset($_SESSION["bestelling"])){
 }else{
     $mandje = null;
 }
+if(isset($_SESSION["klant"])){
+    $klant = unserialize($_SESSION["klant"]);
+}else{
+    $klant = null;
+}
 //globals
 $lijstPizzas = PizzaDao::geefAlleSoortenPizzas();
 $lijstAndere = ProductDao::geefAlleProductenTenzijExtraOfPizza();
@@ -83,15 +88,11 @@ Twig_Autoloader::register();
 
 $loader = new Twig_Loader_Filesystem("presentation");
 $twig = new Twig_Environment($loader);
-$pre = $twig->render("topHeader.twig");
-$end = $twig->render("bottomCloser.twig");
 if(isset($nieuwePizza)){
-    $view = $twig->render("productenVoorKlant.twig", array("pizzaLijst" => $lijstPizzas, "productLijst" => $lijstAndere, "catLijst" => $lijstCats, "nieuwePizza" => $nieuwePizza, "extras" => $extras, "mandje" => $mandje));
+    $view = $twig->render("productenVoorKlant.twig", array("pizzaLijst" => $lijstPizzas, "klant" => $klant, "productLijst" => $lijstAndere, "catLijst" => $lijstCats, "nieuwePizza" => $nieuwePizza, "extras" => $extras, "mandje" => $mandje));
 }else{
-    $view = $twig->render("productenVoorKlant.twig", array("pizzaLijst" => $lijstPizzas, "productLijst" => $lijstAndere, "catLijst" => $lijstCats, "mandje" => $mandje));
+    $view = $twig->render("productenVoorKlant.twig", array("pizzaLijst" => $lijstPizzas, "klant" => $klant, "productLijst" => $lijstAndere, "catLijst" => $lijstCats, "mandje" => $mandje));
 }
-print($pre);
 print($view);
-print($end);
 
 ?>

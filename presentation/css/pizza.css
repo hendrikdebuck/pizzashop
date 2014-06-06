@@ -52,6 +52,10 @@ body{
 .extralijn{
     margin-left: 0.5em;
 }
+.foutboodschap{
+    color: rgb(220,0,0);
+    padding-left: 2em;
+}
 
 
 /* CF */

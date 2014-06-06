@@ -7,10 +7,10 @@ class Validate {
     }
     
     public static function ValidateItemOnType($toTest, $iden, $errArr, $type){
-        //needs $toTest string for testing
+        //needs $toTest string for testing (value)
         //needs $iden , this becomes the index in the array if checking fails
         //return & requires $errArr with present errors
-        //needs $type string
+        //needs $type string to know what to check for
         
         //types:
         //postcode
@@ -19,11 +19,12 @@ class Validate {
         //pw
         
         //is value ingevuld?
+        
         if(!isset($toTest) || trim($toTest) == ""){
             $mess = "Veld niet ingevuld.";
             $toAdd = new ErrorMessage($iden, $mess);
             array_push($errArr,$toAdd);
-            
+            //print_r($errArr);
         }else{
             //check op type
             if($type == "tekst"){
@@ -54,13 +55,13 @@ class Validate {
                     array_push($errArr, new ErrorMessage($iden, $mess));
                 }
             }elseif($type == "gebrnaam"){
-                if(!(strlen($toTest) >= 6)){
+                if(!(strlen($toTest) >= 2)){
                     $mess = "Gebruikersnaam niet lang genoeg, min 6 letters.";
                     array_push($errArr, new ErrorMessage($iden, $mess));
                 }
             }elseif($type == "pass"){
                 //print("passing");
-                if(!(strlen($toTest) >= 8)){
+                if(!(strlen($toTest) >= 2)){
                     $mess = "Wachtwoord niet lang genoeg, min 8 letters.";
                     array_push($errArr, new ErrorMessage($iden, $mess));
                 }
@@ -71,7 +72,21 @@ class Validate {
     }
     
     public static function ValidatePasswords($toTest1, $toTest2, $iden1, $iden2, $errArr){
-        
+        /*
+         * @param $toTest, $toTest2: first and second password
+         * $iden1, $iden2 : first and second identifier
+         * $errArr : existing Array() of errors
+         * 
+         * returns: $errArr, with new error added if needed
+         */
+        //print_r($errArr);
+        if(!($toTest1 == $toTest2)){
+            $mess = "Wachtwoorden komen niet overeen!";
+            array_push($errArr, new ErrorMessage($iden1, $mess));
+            array_push($errArr, new ErrorMessage($iden2, $mess));
+            //print_r($errArr);
+        }
+        return $errArr;
     }
 }
 ?>

@@ -27,7 +27,37 @@ class KlantDao {
         }else{
             print_r($stmt->errorInfo());
         }
+    }
+    
+    public static function geefIdVanGemeente($gemeente){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "Select id from postcodes where gemeente = :gemeente";
+        $stmt = $dbh->prepare($sql);
         
+        $stmt->bindParam(":gemeente" , $gemeente);
+        if($stmt->execute()){
+            $rij = $stmt->fetch();
+            if(!$rij){
+                return null;
+            }else {
+                return $rij["id"];
+            }
+        }else{
+            print_r($stmt->errorInfo());
+        }
+    }
+    
+    public static function voegGemeenteMetPostcodeToe($gemeente, $postcode){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "insert into postcodes (postcode,gemeente) values (:postcode,:gemeente)";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":postcode",$postcode);
+        $stmt->bindParam(":gemeente",$gemeente);
+        if($stmt->execute()){
+            return true;
+        }else{
+            print_r($stmt->errorInfo());
+        }
     }
     
     public static function GeefKlantMetId($id){
@@ -48,10 +78,29 @@ class KlantDao {
         }else{
             print_r($stmt->errorInfo());
         }
-        
-        
     }
+    
+    public static function voegKlantToe($klant, $gemId){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "insert into klanten (naam, voornaam, adres, postcodeId, btwNr, telefoon, email, pizzateller, opmerkingen, blokkering, accountId) values
+            ( :naam, :vnaam , :adres , :postcodeId, :btw, :tel, :email, 0, '', 0, :accId )";
         
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":naam",$klant->getNaam());
+        $stmt->bindParam(":vnaam",$klant->getVnaam());
+        $stmt->bindParam(":adres",$klant->getAdres());
+        $stmt->bindParam(":postcodeId",$gemId);
+        $stmt->bindParam(":btw",$klant->getBtwNr());
+        $stmt->bindParam(":tel",$klant->getTelefoon());
+        $stmt->bindParam(":email",$klant->getEmail());
+        $stmt->bindParam(":accId",$klant->getId());
+        
+        if($stmt->execute()){
+            print(" reg compleet");
+        }else{
+            print_r($stmt->errorInfo());
+        }
+    }
 }
 
 ?>

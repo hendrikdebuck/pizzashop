@@ -51,7 +51,7 @@
                 <input type="text" name="txtpostcode" id="postcode" class="form-control" />
             </div>
             {% for fout in fouten %}
-                {%if fout.iden == "txtnaam" %}
+                {%if fout.iden == "txtpostcode" %}
                     <div class="row">
                         <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
                     </div>
@@ -64,7 +64,7 @@
                 <input type="text" name="txtgemeente" id="gemeente" class="form-control" />
             </div>
             {% for fout in fouten %}
-                {%if fout.iden == "txtnaam" %}
+                {%if fout.iden == "txtgemeente" %}
                     <div class="row">
                         <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
                     </div>
@@ -76,13 +76,7 @@
             <div class="col-md-4">
                 <input type="text" name="txtbtw" id="btw" class="form-control" />
             </div>
-            {% for fout in fouten %}
-                {%if fout.iden == "txtnaam" %}
-                    <div class="row">
-                        <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
-                    </div>
-                {% endif %}
-            {% endfor %}
+            
         </div>
         <div class="form-group">
             <label for="tel" class="col-md-3 control-label">Telefoon nr:* </label>
@@ -90,7 +84,7 @@
                 <input type="text" name="txttel" id="tel" class="form-control" />
             </div>
             {% for fout in fouten %}
-                {%if fout.iden == "txtnaam" %}
+                {%if fout.iden == "txttel" %}
                     <div class="row">
                         <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
                     </div>
@@ -103,7 +97,7 @@
                 <input type="text" name="txtemail" id="email" class="form-control" />
             </div>
             {% for fout in fouten %}
-                {%if fout.iden == "txtnaam" %}
+                {%if fout.iden == "txtemail" %}
                     <div class="row">
                         <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
                     </div>
@@ -116,7 +110,7 @@
                 <input type="text" name="txtlogin" id="login" class="form-control" />
             </div>
             {% for fout in fouten %}
-                {%if fout.iden == "txtnaam" %}
+                {%if fout.iden == "txtlogin" %}
                     <div class="row">
                         <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
                     </div>
@@ -129,7 +123,7 @@
                 <input type="password" name="txtpw1" id="pass1" class="form-control" />
             </div>
             {% for fout in fouten %}
-                {%if fout.iden == "txtnaam" %}
+                {%if fout.iden == "txtpw1" %}
                     <div class="row">
                         <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
                     </div>
@@ -142,7 +136,7 @@
                 <input type="password" name="txtpw2" id="pass2" class="form-control" />
             </div>
             {% for fout in fouten %}
-                {%if fout.iden == "txtnaam" %}
+                {%if fout.iden == "txtpw2" %}
                     <div class="row">
                         <div class="col-md-offset-3 col-md-4 foutboodschap">{{fout.message}}</div>
                     </div>

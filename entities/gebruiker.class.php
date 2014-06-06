@@ -31,6 +31,9 @@ class Gebruiker {
     public function setPw($pw) {
         $this->pw = $pw;
     }
-
+    
+    public function setId($id){
+        $this->id = $id;
+    }
 }
 ?>

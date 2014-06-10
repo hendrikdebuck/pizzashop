@@ -1,0 +1,47 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="mandlarge">
+    <div class="mandhoofding">
+        Winkelmandje
+    </div>
+    <div class="mandinhoud">
+        <table class="table">
+            <tr>
+                <th>Naam</th>
+                <th>Omschrijving</th>
+                <th>Korting</th>
+                <th>Prijs</th>
+                <th></th>
+            </tr>
+            {% if mandje.producten is defined and mandje.producten != empty %}
+                {% for product in mandje.producten %}
+                    <tr class="producttr">
+                        <td>{{product.naam}}</td>
+                        <td>{{product.omschrijving}}</td>
+                        <td>{{product.korting}}</td>
+                        <td>{{product.basisprijs}}</td>
+                        <td><a href="?verwijder={{loop.index0}}">Verwijder</a></td>
+                    </tr>
+                    {% if product.ArrExtras is defined and product.arrExtras != empty %}
+                        <tr class="extrarow">
+                            <td></td>
+                            <td colspan="5" class="extracel">Extras:
+                            {% for extra in product.ArrExtras  %}
+                                {{ extra.naam }}
+                            {% endfor %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>
+                        Winkelmandje is leeg. Ga naar bestellen om items toe te voegen.
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+{% endblock content %}

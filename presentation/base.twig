@@ -16,32 +16,45 @@
             <div class=hoofding>
                 <h1>De pizzashop!</h1>
             </div>
+            <div class="menu">
+                <ul class="nav nav-pills">
+                    <li><a>Home</a></li>
+                    <li><a href="toonPizzas.php">Bestellen</a></li>
+                    <li><a href="winkelmand.php">Winkelmandje</a></li>
+                    <li><a>Levering</a></li>
+                </ul>
+            </div>
                 
 {% block mand %}
-<div class="winkelmandje">
-    <div class="winkelhoofding">Winkelmandje:</div>
-    <div class="winkelinhoud">
-        {% if mandje is defined and mandje != "" %}
-            {% for product in mandje.producten %}
-                <div class="row">
-                    <div class="col-md-8">{{product.naam}}</div>
-                    <div class="col-md-3 naarrechts">{{product.basisPrijs}}</div>
-                    <div class="col-md-1"></div>
-                </div>
-                {% if product.ArrExtras is defined and product.arrExtras != empty %}
-                    {% for extra in product.ArrExtras  %}
-                        <div class="extralijn">{{extra.naam}}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        {% else %}
-            <div class="winkellijn">Winkelmandje is leeg!</div>
-        {% endif %}
+{% if not donotshowmand %}
+    <div class="winkelmandje">
+        <div class="winkelhoofding">Winkelmandje:</div>
+        <div class="winkelinhoud">
+            {% if mandje is defined and mandje != "" %}
+                {% for product in mandje.producten %}
+                    <div class="row">
+                        <div class="col-md-8">{{product[0].naam}}</div>
+                        <div class="col-md-3 naarrechts">{{product[0].basisPrijs}}</div>
+                        
+                    </div>
+                    {% if product[0].ArrExtras is defined and product[0].arrExtras != empty %}
+                        {% for extra in product[0].ArrExtras  %}
+                            <div class="extralijn">{{extra.naam}}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row aantalrowsmall">
+                        <div class="col-md-12 naarrechts">Aantal: {{product[1]}}</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="winkellijn">Winkelmandje is leeg!</div>
+            {% endif %}
+        </div>
+        <div class="row som">
+            <div class="col-md-8"></div><div class="col-md-3 naarrechts">SOM</div>
+        </div>
     </div>
-    <div class="row som">
-        <div class="col-md-8"></div><div class="col-md-3 naarrechts">SOM</div>
-    </div>
-</div>
+{% endif %}
 {% endblock mand %}
 
 <div class="contentgroup">

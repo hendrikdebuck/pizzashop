@@ -32,7 +32,8 @@ if(isset($_GET["bestel"]) && $_GET["bestel"] == "product"){
             //$bestelling->voegProductToe();
         }
         $nieuwProduct = ProductDao::geefProductMetId($_GET["productId"]);
-        $bestelling->voegProductToe($nieuwProduct);
+        //HIER NOG AANTAL AANPASSEN
+        $bestelling->voegProductToe($nieuwProduct,1);
         $_SESSION["bestelling"] = serialize($bestelling);
     }
 }
@@ -57,7 +58,8 @@ if(isset($_POST["pizzaId"]) && isset($_POST["extrastoevoegen"]) && $_POST["extra
             $nieuwePizza->voegExtraToe($extrObjToeTeVoegen);
         }
     }
-    $bestelling->voegProductToe($nieuwePizza);
+    //AANTAL AANPASSEN
+    $bestelling->voegProductToe($nieuwePizza,1);
 //        print("<pre>");
 //        print_r($bestelling);
 //        print("</pre>");

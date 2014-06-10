@@ -50,12 +50,30 @@ body{
     text-align: right;
 }
 .extralijn{
-    margin-left: 0.5em;
+    padding-left: 0.5em;
 }
 .foutboodschap{
     color: rgb(220,0,0);
     padding-left: 2em;
 }
+.extrarow{
+    border-top: white solid 2px;
+}
+.menu{
+    background-color: rgba(0,0,0,0.05);
+    margin: 1em 0;
+}
+.extracel{
+    font-size: 0.875em;
+    padding-left: 20em;
+}
+.producttr{
+    border-top: solid black 1px;
+}
+.aantalrowsmall{
+    margin-bottom: 1em;
+}
+
 
 
 /* CF */

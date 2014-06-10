@@ -1,10 +1,15 @@
 <?php
+session_start();
 //includes
 require_once("libs/Twig/Autoloader.php");
 require_once("data/klantdao.class.php");
 require_once("libs/regval.class.php");
 require_once("data/accountdao.class.php");
 require_once("business/registratieservice.class.php");
+require_once("entities/winkelmand.class.php");
+require_once("data/pizzadao.class.php");
+require_once("data/extradao.class.php");
+
 
 $errors = array();
 //checks
@@ -94,6 +99,6 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem("presentation");
 $twig = new Twig_Environment($loader);
 
-$view = $twig->render("registerWindow.twig", array("fouten" => $errors));
+$view = $twig->render("registerWindow.twig", array("fouten" => $errors, "mandje" => $mandje));
 print("$view");
 ?>

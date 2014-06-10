@@ -59,9 +59,16 @@ class Winkelmand{
         $this->klant = $klant;
     }
     
-    public function voegProductToe($product){
+    public function voegProductToe($product, $aantal){
         $temp = $this->getProducten();
-        array_push($temp, $product);
+        array_push($temp, array($product, $aantal));
+        $this->setProducten($temp);
+    }
+    
+    public function verwijderProduct($arrIndex){
+        $temp = $this->getProducten();
+        unset($temp[$arrIndex]);
+        $temp = array_values($temp);
         $this->setProducten($temp);
     }
 }

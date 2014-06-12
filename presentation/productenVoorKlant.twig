@@ -6,23 +6,23 @@
 
 {% block content %}
 {% if nieuwePizza is defined %}
-<div class="productgroep">
-    <div class="row">
-        <div class="col-md-2">{{nieuwePizza.naam}}</div>
-        <div class="col-md-1">Aantal:1</div>
-    </div>
-    <div class="clearFix">
-        <div class="row clearFix">
-            <form class="form-inline" method="post">
+<form class="form-inline" method="post">
+    <div class="productgroep">
+        <div class="row">
+            <div class="col-md-2">{{nieuwePizza.naam}}</div>
+            <div class="col-md-3">Aantal:<input type="number" name="prodaantal" class="smallinput" /></div>
+        </div>
+        <div class="clearFix">
+            <div class="row clearFix">
                 {% for extra in extras %}
                     <div class="col-md-3 floating">{{ extra.naam }} (&euro; {{ extra.basisPrijs }}) <input type="number" name="{{ extra.id }}" class="smallinput" /></div>
                 {% endfor %}
                 <input type="hidden" name="pizzaId" value="{{nieuwePizza.id}}" />
                 <input type="submit" name="extrastoevoegen" value="Toevoegen" />
-            </form>
+            </div>
         </div>
     </div>
-</div>
+</form>
 {% endif %}
 
 
@@ -30,10 +30,10 @@
     {% for pizza in pizzaLijst %}
         <div class="row">
             <div class="col-md-2">{{ pizza.naam }}</div>
-            <div class="col-md-6">{{ pizza.omschrijving }}</div>
+            <div class="col-md-5">{{ pizza.omschrijving }}</div>
             <div class="col-md-1">&euro; {{ pizza.basisPrijs }}</div>
             <div class="col-md-1">{% if pizza.korting > 0 %} {{ pizza.korting }} {% endif %}</div>
-            <div class="col-md-2"><a href="?bestel=pizza&pizzaId={{ pizza.id }}">Bestel hier!</a></div>
+            <div class="col-md-2 col-md-offset-1"><a href="?bestel=pizza&pizzaId={{ pizza.id }}">Bestel hier!</a></div>
         </div>
     {% endfor %}
 </div>
@@ -44,9 +44,10 @@
             {% if product.catOmschrijving == cat %}
                 <div class="row">
                     <div class="col-md-2">{{ product.naam }}</div>
-                    <div class="col-md-6">{{ product.omschrijving }}</div>
+                    <div class="col-md-5">{{ product.omschrijving }}</div>
                     <div class="col-md-1">&euro; {{ product.basisPrijs }}</div>
                     <div class="col-md-1">{% if product.korting > 0 %} {{ product.korting }} {% endif %}</div>
+                    <div class="col-md-1"><input class="smallinput" type="number" name="prodaantal" /></div>
                     <div class="col-md-2"><a href="?bestel=product&productId={{ product.id }}">Bestel hier!</a></div>
                 </div>
             {% endif %}

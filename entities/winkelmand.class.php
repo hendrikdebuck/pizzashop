@@ -1,9 +1,9 @@
 <?php
 //includes
-require_once("entities/pizza.class.php");
+require_once("bestelregel.class.php");
 
 class Winkelmand{
-    private $producten = array();
+    private $bestelregelArr = array();
     private $klant;
     private $besteld;
     private $gewenst;
@@ -11,10 +11,6 @@ class Winkelmand{
     private $id;
     
     function __construct() {
-    }
-    
-    public function getProducten() {
-        return $this->producten;
     }
 
     public function getKlant() {
@@ -36,9 +32,6 @@ class Winkelmand{
     public function getId() {
         return $this->id;
     }
-    public function setProducten($producten) {
-        $this->producten = $producten;
-    }
 
     public function setBesteld($besteld) {
         $this->besteld = $besteld;
@@ -59,17 +52,42 @@ class Winkelmand{
         $this->klant = $klant;
     }
     
-    public function voegProductToe($product, $aantal){
-        $temp = $this->getProducten();
-        array_push($temp, array($product, $aantal));
-        $this->setProducten($temp);
+    public function voegBestelregelToe($nieuweRegel){
+        //check of hetzelfe product bestaat in een andere bestelregel
+        //indien niet, maak nieuwe bestelregel
+        $exists = false;
+        $temp = $this->getBestelregelArr();
+        
+        foreach ($temp as $regel){
+            if(!$exists){
+                if($regel->getProduct() == $nieuweRegel->getProduct()){
+                    print("hetzelfde product!");
+                    $regel->setAantal($regel->getAantal() + $nieuweRegel->getAantal());
+                    $exists = true;
+                }
+            }
+        }
+        
+        if(!$exists){
+        //nieuwe regel
+            array_push($temp, $nieuweRegel);
+        }
+        $this->setBestelregelArr($temp);
     }
     
-    public function verwijderProduct($arrIndex){
-        $temp = $this->getProducten();
+    public function verwijderBestelregel($arrIndex){
+        $temp = $this->getBestelregelArr();
         unset($temp[$arrIndex]);
         $temp = array_values($temp);
-        $this->setProducten($temp);
+        $this->setBestelregelArr($temp);
+    }
+            
+    public function getBestelregelArr() {
+        return $this->bestelregelArr;
+    }
+
+    public function setBestelregelArr($bestelregelArr) {
+        $this->bestelregelArr = $bestelregelArr;
     }
 }
 ?>

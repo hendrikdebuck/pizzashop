@@ -10,7 +10,7 @@ if(isset($_SESSION["bestelling"])){
     $mandje = unserialize($_SESSION["bestelling"]);
     if(isset($_GET["verwijder"]) && $_GET["verwijder"] >= 0){
         //print("verwijdering processing");
-        $mandje->verwijderProduct($_GET["verwijder"]);
+        $mandje->verwijderBestelregel($_GET["verwijder"]);
         //print("id weg: " . $_GET["verwijder"]);
         $_SESSION["bestelling"] = serialize($mandje);
     }
@@ -18,11 +18,11 @@ if(isset($_SESSION["bestelling"])){
     $mandje = null;
 }
 
-$donotshotmand = true;
+$donotshowmand = true;
 
 twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem("presentation");
 $twig = new Twig_Environment($loader);
-$view = $twig->render("winkelmandlarge.twig", array("donotshowmand" => $donotshotmand, "mandje" => $mandje));
+$view = $twig->render("winkelmandlarge.twig", array("donotshowmand" => $donotshowmand, "mandje" => $mandje));
 print($view);
 ?>

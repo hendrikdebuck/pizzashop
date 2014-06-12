@@ -31,19 +31,20 @@
         <div class="winkelhoofding">Winkelmandje:</div>
         <div class="winkelinhoud">
             {% if mandje is defined and mandje != "" %}
-                {% for product in mandje.producten %}
+                {% for bestelregel in mandje.bestelregelArr %}
                     <div class="row">
-                        <div class="col-md-8">{{product[0].naam}}</div>
-                        <div class="col-md-3 naarrechts">{{product[0].basisPrijs}}</div>
+                        <div class="col-md-8">{{bestelregel.product.naam}}</div>
+                        <div class="col-md-3 naarrechts">{{bestelregel.product.basisPrijs}}</div>
                         
                     </div>
-                    {% if product[0].ArrExtras is defined and product[0].arrExtras != empty %}
-                        {% for extra in product[0].ArrExtras  %}
-                            <div class="extralijn">{{extra.naam}}</div>
+                    {% if bestelregel.product.ArrExtras is defined and bestelregel.product.arrExtras != empty %}
+                        {% for extra in bestelregel.product.ArrExtras  %}
+                            <div class="col-md-8 col-md-offset-1">{{extra.naam}}</div>
+                            <div class="col-md-3">{{extra.basisPrijs}}</div>
                         {% endfor %}
                     {% endif %}
                     <div class="row aantalrowsmall">
-                        <div class="col-md-12 naarrechts">Aantal: {{product[1]}}</div>
+                        <div class="col-md-12 naarrechts">Aantal: {{bestelregel.getAantal}}</div>
                     </div>
                 {% endfor %}
             {% else %}

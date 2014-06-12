@@ -12,26 +12,31 @@
                 <th>Omschrijving</th>
                 <th>Korting</th>
                 <th>Prijs</th>
+                <th>Aantal</th>
+                <th>Subtotaal</th>
                 <th></th>
             </tr>
-            {% if mandje.producten is defined and mandje.producten != empty %}
-                {% for product in mandje.producten %}
+            {% if mandje.bestelregelArr is defined and mandje.bestelregelArr != empty %}
+                {% for bestelregel in mandje.bestelregelArr %}
                     <tr class="producttr">
-                        <td>{{product.naam}}</td>
-                        <td>{{product.omschrijving}}</td>
-                        <td>{{product.korting}}</td>
-                        <td>{{product.basisprijs}}</td>
+                        <td>{{bestelregel.getProduct.naam}}</td>
+                        <td>{{bestelregel.getProduct.omschrijving}}</td>
+                        <td>{{bestelregel.getProduct.korting}}</td>
+                        <td>{{bestelregel.getProduct.basisprijs}}</td>
+                        <td>{{bestelregel.getAantal}}</td>
                         <td><a href="?verwijder={{loop.index0}}">Verwijder</a></td>
                     </tr>
-                    {% if product.ArrExtras is defined and product.arrExtras != empty %}
-                        <tr class="extrarow">
+                    {% if bestelregel.getProduct.ArrExtras is defined and bestelregel.getProduct.arrExtras != empty %}
+                        
+                            {% for extra in bestelregel.getProduct.ArrExtras  %}
+                    <tr class="extrarow">
                             <td></td>
                             <td colspan="5" class="extracel">Extras:
-                            {% for extra in product.ArrExtras  %}
                                 {{ extra.naam }}
-                            {% endfor %}
-                            </td>
+                                    </td>
                         </tr>
+                            {% endfor %}
+                            
                     {% endif %}
                 {% endfor %}
             {% else %}

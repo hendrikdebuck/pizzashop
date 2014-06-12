@@ -20,6 +20,7 @@ if(isset($_GET["bestel"]) && $_GET["bestel"] == "pizza"){
         //print_r($nieuwePizza);
     }
 }
+//er is geklikt op een andere product dan een pizza
 if(isset($_GET["bestel"]) && $_GET["bestel"] == "product"){
     if(isset($_GET["productId"])){
         //nieuw product toevoegen, anders dan een pizza
@@ -29,11 +30,19 @@ if(isset($_GET["bestel"]) && $_GET["bestel"] == "product"){
         }else{
             //print("al een mandje");
             $bestelling = unserialize($_SESSION["bestelling"]);
-            //$bestelling->voegProductToe();
         }
         $nieuwProduct = ProductDao::geefProductMetId($_GET["productId"]);
-        //HIER NOG AANTAL AANPASSEN
-        $bestelling->voegProductToe($nieuwProduct,1);
+        //invoegen van nieuwe bestelregel in sessie
+        $bestelregel = new Bestelregel();
+        $bestelregel->setProduct($nieuwProduct);
+        if(isset($_GET["prodaantal"]) && is_numeric($_GET["prodaantal"]) && $_GET["prodaantal"] >= 0 && $_GET["prodaantal"] != ""){
+            $aantal = $_GET["prodaantal"];
+        }else{
+            $aantal = 1;
+        }
+        $bestelregel->setAantal($aantal);
+        $bestelling->voegBestelregelToe($bestelregel);
+        print($aantal);
         $_SESSION["bestelling"] = serialize($bestelling);
     }
 }
@@ -50,7 +59,7 @@ if(isset($_POST["pizzaId"]) && isset($_POST["extrastoevoegen"]) && $_POST["extra
     $nieuwePizza = PizzaDao::getPizzaById($_POST["pizzaId"]);
     $extraids = ExtraDao::getAllExtraIds();
     //print_r($extraids);
-    //overloop alle mogelijke extras en kijk hoeveel ze erbij gegooid moeten worden
+    //overloop alle mogelijke extras en kijk of ze erbij gegooid moeten worden
     foreach($extraids as $exId){
         if(isset($_POST[$exId]) && (int)$_POST[$exId] != 0){
             //print("id" + $exId);
@@ -58,8 +67,16 @@ if(isset($_POST["pizzaId"]) && isset($_POST["extrastoevoegen"]) && $_POST["extra
             $nieuwePizza->voegExtraToe($extrObjToeTeVoegen);
         }
     }
-    //AANTAL AANPASSEN
-    $bestelling->voegProductToe($nieuwePizza,1);
+    //aantal toevoegen
+    if(isset($_POST["prodaantal"]) && is_numeric($_POST["prodaantal"]) && $_POST["prodaantal"] >= 0){
+        $aantal = $_POST["prodaantal"];
+    }else{
+        $aantal = 1;
+    }
+    $pizzaRegel = new Bestelregel();
+    $pizzaRegel->setProduct($nieuwePizza);
+    $pizzaRegel->setAantal($aantal);
+    $bestelling->voegBestelregelToe($pizzaRegel);
 //        print("<pre>");
 //        print_r($bestelling);
 //        print("</pre>");

@@ -19,11 +19,12 @@
             {% if mandje.bestelregelArr is defined and mandje.bestelregelArr != empty %}
                 {% for bestelregel in mandje.bestelregelArr %}
                     <tr class="producttr">
-                        <td>{{bestelregel.getProduct.naam}}</td>
-                        <td>{{bestelregel.getProduct.omschrijving}}</td>
-                        <td>{{bestelregel.getProduct.korting}}</td>
-                        <td>{{bestelregel.getProduct.basisprijs}}</td>
-                        <td>{{bestelregel.getAantal}}</td>
+                        <td>{{bestelregel.Product.naam}}</td>
+                        <td>{{bestelregel.Product.omschrijving}}</td>
+                        <td>{{bestelregel.Product.korting}}</td>
+                        <td>{{bestelregel.Product.basisprijs}}</td>
+                        <td>{{bestelregel.Aantal}}</td>
+                        <td>{{bestelregel.Subtotaal}}</td>
                         <td><a href="?verwijder={{loop.index0}}">Verwijder</a></td>
                     </tr>
                     {% if bestelregel.getProduct.ArrExtras is defined and bestelregel.getProduct.arrExtras != empty %}
@@ -39,6 +40,11 @@
                             
                     {% endif %}
                 {% endfor %}
+                <tr>
+                    <td colspan="4"></td>
+                    <td>Prijs:</td>
+                    <td>{{mandje.totaal}}</td>
+                </tr>
             {% else %}
                 <tr>
                     <td>
@@ -47,6 +53,9 @@
                 </tr>
             {% endif %}
         </table>
+        <form method="get">
+            <input type="submit" name="bevestig" value="Bestelling plaatsen" />
+        </form>
     </div>
 </div>
 {% endblock content %}

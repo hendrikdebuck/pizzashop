@@ -30,8 +30,8 @@ class Bestelregel {
         return $this->subtotaal;
     }
 
-    public function setSubtotaal($subtotaal) {
-        $this->subtotaal = $subtotaal;
+    public function setSubtotaal() {
+        $this->subtotaal = ($this->getProduct()->getBasisPrijs() - $this->getProduct()->getKorting()) * $this->getAantal();
     }
 }
 

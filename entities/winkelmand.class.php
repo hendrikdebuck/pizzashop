@@ -63,6 +63,7 @@ class Winkelmand{
                 if($regel->getProduct() == $nieuweRegel->getProduct()){
                     print("hetzelfde product!");
                     $regel->setAantal($regel->getAantal() + $nieuweRegel->getAantal());
+                    $regel->setSubtotaal();
                     $exists = true;
                 }
             }
@@ -88,6 +89,14 @@ class Winkelmand{
 
     public function setBestelregelArr($bestelregelArr) {
         $this->bestelregelArr = $bestelregelArr;
+    }
+    
+    public function getTotaal(){
+        $totaal = 0;
+        foreach($this->getBestelregelArr() as $regel){
+            $totaal += $regel->getSubtotaal();
+        }
+        return $totaal;
     }
 }
 ?>

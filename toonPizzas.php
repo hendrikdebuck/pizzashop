@@ -41,6 +41,7 @@ if(isset($_GET["bestel"]) && $_GET["bestel"] == "product"){
             $aantal = 1;
         }
         $bestelregel->setAantal($aantal);
+        $bestelregel->setSubtotaal();
         $bestelling->voegBestelregelToe($bestelregel);
         print($aantal);
         $_SESSION["bestelling"] = serialize($bestelling);
@@ -76,6 +77,7 @@ if(isset($_POST["pizzaId"]) && isset($_POST["extrastoevoegen"]) && $_POST["extra
     $pizzaRegel = new Bestelregel();
     $pizzaRegel->setProduct($nieuwePizza);
     $pizzaRegel->setAantal($aantal);
+    $pizzaRegel->setSubtotaal();
     $bestelling->voegBestelregelToe($pizzaRegel);
 //        print("<pre>");
 //        print_r($bestelling);

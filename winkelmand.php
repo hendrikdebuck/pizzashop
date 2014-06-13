@@ -5,6 +5,15 @@ require_once("libs/Twig/Autoloader.php");
 require_once("entities/winkelmand.class.php");
 require_once("data/pizzadao.class.php");
 require_once("data/extradao.class.php");
+require_once("business/winkelmandservice.class.php");
+
+if(isset($_GET["bevestig"]) && $_GET["bevestig"] == "Bestelling plaatsen"){
+    //activeer de service
+    //leeg de session
+    print("bevestigd!");
+    WinkelmandService::voegBestellingToe(unserialize($_SESSION["bestelling"]));
+}
+
 
 if(isset($_SESSION["bestelling"])){
     $mandje = unserialize($_SESSION["bestelling"]);

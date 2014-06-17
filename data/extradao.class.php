@@ -53,5 +53,6 @@ class ExtraDao extends ProductDao {
             print($stmt->errorInfo());
         }
     }
+    
 }
 ?>

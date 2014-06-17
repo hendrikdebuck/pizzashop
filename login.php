@@ -21,6 +21,8 @@ if(isset($_POST["inlogknop"]) && $_POST["inlogknop"] == "Aanmelden"){
         }
         header("location: toonPizzas.php");
     }
+}else{
+    header("location: toonPizzas.php");
 }
 
 ?>

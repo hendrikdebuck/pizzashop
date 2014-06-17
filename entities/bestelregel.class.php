@@ -7,6 +7,8 @@ class Bestelregel {
     private $product;
     private $aantal;
     private $subtotaal;
+    private $korting;
+    private $id;
     
     function __construct() {
     }
@@ -32,6 +34,21 @@ class Bestelregel {
 
     public function setSubtotaal() {
         $this->subtotaal = ($this->getProduct()->getBasisPrijs() - $this->getProduct()->getKorting()) * $this->getAantal();
+    }
+    
+    public function getKorting() {
+        return $this->korting;
+    }
+
+    public function setKorting($korting) {
+        $this->korting = $korting;
+    }
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
     }
 }
 

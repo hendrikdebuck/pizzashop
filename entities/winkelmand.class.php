@@ -9,6 +9,7 @@ class Winkelmand{
     private $gewenst;
     private $extraKorting;
     private $id;
+    private $status;
     
     function __construct() {
     }
@@ -52,6 +53,13 @@ class Winkelmand{
         $this->klant = $klant;
     }
     
+    public function getStatus() {
+        return $this->status;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+    }
     public function voegBestelregelToe($nieuweRegel){
         //check of hetzelfe product bestaat in een andere bestelregel
         //indien niet, maak nieuwe bestelregel

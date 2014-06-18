@@ -1,6 +1,9 @@
 {% block loginBlock %}
 <div class="loginVenster">
     <form class="form-inline" action="login.php" method="post">
+        {% if inloggenpls is defined and inloggenpls %}
+            <div class=" form-group foutboodschap">Gelieve in te loggen aub!</div>
+        {% endif %}
         <div class="form-group">
             <input type="text" id="emailinput" name ="emailinput" class="form-control" placeholder="emailadres" />
         </div>
@@ -10,6 +13,7 @@
         <div class="form-group">
             <input type="submit" name="inlogknop" class="form-control" value="Aanmelden" />
         </div>
+            <div><a href="registratie.php">Nieuwe gebruiker?</a></div>
     </form>
 </div>
 {% endblock loginBlock %}

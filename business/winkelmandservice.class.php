@@ -37,13 +37,13 @@ class WinkelmandService {
                 $regelId = BestelregelDao::voegBestelregelToe($bestelRegel, $BestelId);
                 //controle of het product een pizza is
                 if(get_class($bestelRegel->getProduct()) == "Pizza"){
-                    print("tis een pizza!");
+                    //print("tis een pizza!");
                     //voeg de pizza extras toe
                     foreach($bestelRegel->getProduct()->getArrExtras() as  $extraatje){
                         //voeg elke extra toe
-                        print("een extra: <br>");
-                        print($regelId . " => regelid<br>");
-                        print($extraatje->getId() . "=> extra id <br>");
+                        //print("een extra: <br>");
+                        //print($regelId . " => regelid<br>");
+                        //print($extraatje->getId() . "=> extra id <br>");
                         BestelregelDao::voegExtraToekenningToe($extraatje, $regelId);
                         
                     }

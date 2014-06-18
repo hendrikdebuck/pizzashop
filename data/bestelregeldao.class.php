@@ -21,7 +21,6 @@ class BestelregelDao {
         }
     }
     
-    
     public static function voegExtraToekenningToe($extra, $regelId){
         $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
         $sql = "insert into extrastoekenningen(bestelRegelId, extraId, aantal) values (:regelid, :extraid, :aantal)";
@@ -32,7 +31,7 @@ class BestelregelDao {
         $stmt->bindParam(":aantal", $aantal);
         
         if($stmt->execute()){
-            
+            return true;
         }else{
             print_r($stmt->errorInfo());
         }

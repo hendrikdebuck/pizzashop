@@ -20,12 +20,6 @@ class WinkelmandService {
         $mandje->setStatus(3);
         $mandje->setExtraKorting(0);
         
-        //klant aan mandje toevoegen
-        if(isset($_SESSION["klant"])){
-            $mandje->setKlant(unserialize($_SESSION["klant"]));
-        }else{
-            header("location: login.php");
-        }
         //toevoegen van de nieuwe bestelling
         if($BestelId = WinkelmandDAO::voegNieuweBestellingToe($mandje)){
             //vraag id van bestelling

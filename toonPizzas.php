@@ -8,6 +8,7 @@ require_once("entities/pizza.class.php");
 require_once("data/pizzadao.class.php");
 require_once("data/extradao.class.php");
 require_once("entities/winkelmand.class.php");
+require("helpers/klantChecker.php");
 
 //checken op inkomende requests
 
@@ -94,11 +95,7 @@ if(isset($_SESSION["bestelling"])){
 }else{
     $mandje = null;
 }
-if(isset($_SESSION["klant"])){
-    $klant = unserialize($_SESSION["klant"]);
-}else{
-    $klant = null;
-}
+
 //globals
 $lijstPizzas = PizzaDao::geefAlleSoortenPizzas();
 $lijstAndere = ProductDao::geefAlleProductenTenzijExtraOfPizza();

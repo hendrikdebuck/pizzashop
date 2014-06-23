@@ -6,6 +6,7 @@
         Winkelmandje
     </div>
     <div class="mandinhoud">
+        <form method="post">
         <table class="table">
             <tr>
                 <th>Naam</th>
@@ -16,7 +17,7 @@
                 <th>Subtotaal</th>
                 <th></th>
             </tr>
-            <form>
+            
             {% if mandje.bestelregelArr is defined and mandje.bestelregelArr != empty %}
                 {% for bestelregel in mandje.bestelregelArr %}
                     <tr class="producttr">
@@ -48,9 +49,9 @@
                 </tr>
                 <tr>
                     <td colspan="4"></td>
-                    <td><input type="submit" value="Pas aan"></td>
+                    <td><input type="submit" name="aanpassen" value="Pas aan"></td>
                 </tr>
-                </form>
+                
             {% else %}
                 <tr>
                     <td>
@@ -59,6 +60,7 @@
                 </tr>
             {% endif %}
         </table>
+        </form>
         {% if mandje is defined and mandje != empty %}
             <form method="get">
                 <input type="submit" name="bevestig" value="Bestelling plaatsen" />

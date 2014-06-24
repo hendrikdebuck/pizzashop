@@ -5,7 +5,7 @@ require_once("entities/klant.class.php");
 class AccountDao {
      public static function isLoginCorrect($login, $pw){
          $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
-         $sql = "Select id from accounts where login = :login && paswoord = :pw";
+         $sql = "Select id from accounts where login = :login && paswoord = :pw && isgeblokkeerd = false";
          $stmt = $dbh->prepare($sql);
          $stmt->bindParam(":login", $login);
          $stmt->bindParam(":pw", $pw);
@@ -54,6 +54,26 @@ class AccountDao {
              print_r($stmt->errorInfo());
          }
          
+     }
+     
+     public static function adminLogin($login, $pw){
+         $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+         $sql = "Select id from accounts where login = :login && paswoord = :pw && isgeblokkeerd = false & isbeheerder = true";
+         $stmt = $dbh->prepare($sql);
+         $stmt->bindParam(":login", $login);
+         $stmt->bindParam(":pw", $pw);
+         
+         if($stmt->execute()){
+             $rij = $stmt->fetch();
+             if(!$rij){
+                 return null;
+             }else{
+                 $res = $rij["id"];
+                 return $res;
+             }
+         }else{
+             print_r($stmt->errorInfo());
+         }
      }
 }
 ?>

@@ -34,6 +34,13 @@ class Bestelregel {
 
     public function setSubtotaal() {
         $this->subtotaal = ($this->getProduct()->getBasisPrijs() - $this->getProduct()->getKorting()) * $this->getAantal();
+        if(get_class($this->getProduct()) == "Pizza"){
+            $extrasubtotaal = 0;
+            foreach($this->getProduct()->getArrExtras() as $extra){
+                $extrasubtotaal += $extra->getBasisPrijs();
+            }
+            $this->subtotaal += $extrasubtotaal * $this->getAantal();
+        }
     }
     
     public function getKorting() {

@@ -14,9 +14,10 @@ class WinkelmandService {
         $tijdBesteld = $tijd->format('Y-m-d H:i:s');
         
         $mandje->setBesteld($tijdBesteld);
-        
+        $tijd->add(new DateInterval('PT15M'));
         //temp values
-        $mandje->setGewenst($tijdBesteld + 1800000);
+        $tijdGewenst = $tijd->format('Y-m-d H:i:s');
+        $mandje->setGewenst($tijdGewenst);
         $mandje->setStatus(3);
         $mandje->setExtraKorting(0);
         

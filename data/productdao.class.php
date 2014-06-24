@@ -91,5 +91,49 @@ class ProductDao {
             print_r($stmt->errorInfo());
         }
     }
+    
+    public static function geefAlleCategorien(){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $res = array();
+        $sql = "Select id, omschrijving from categorien ";
+        $stmt = $dbh->prepare($sql);
+        if($stmt->execute()){
+            $dataSet = $stmt->fetchAll();
+            foreach($dataSet as $rij){
+                $toadd = array($rij["id"],$rij["omschrijving"]);
+                array_push($res, $toadd);
+            }
+            return $res;
+        }else{
+            print_r($stmt->errorInfo());
+        }
+    }
+    
+    public static function voegNieuweCategorieToe($omschrijvingCat){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "Insert into categorien (omschrijving) values (:omschrijving)";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":omschrijving", $omschrijvingCat);
+        if($stmt->execute()){
+            return $dbh->lastInsertId();
+        }else{
+            print_r($stmt->errorInfo());
+            return null;
+        }
+    }
+    
+    public static function updateCategorie($catId, $catOmschrijving){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "Update categorien set omschrijving = :omschrijving where id = :id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":id",$catId);
+        $stmt->bindParam(":omschrijving",$catOmschrijving);
+        if($stmt->execute()){
+            return true;
+        }else{
+            print_r($stmt->errorInfo());
+            return false;
+        }
+    }
 }
 ?>

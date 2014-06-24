@@ -15,7 +15,7 @@ if(isset($_POST["inlogknop"]) && $_POST["inlogknop"] == "Aanmelden"){
             $deklant = KlantDao::GeefKlantMetId($idIngelogd);
             //print_r($deklant);
             $_SESSION["klant"] = serialize($deklant);
-            print_r(unserialize($_SESSION["klant"]));
+            //print_r(unserialize($_SESSION["klant"]));
         }else{
             print("login NOK");
         }

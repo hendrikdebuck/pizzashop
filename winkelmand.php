@@ -38,6 +38,7 @@ if(isset($_SESSION["bestelling"])){
         foreach($mandje->getBestelregelArr() as $regel){
             if(isset($_POST["aantalid_$tempid"])){
                 $regel->setAantal($_POST["aantalid_$tempid"]);
+                $regel->setSubtotaal();
             }
             $tempid++;
         }

@@ -1,0 +1,45 @@
+{% extends "adminlogin.twig" %}
+
+{% block content %}
+{% if aanpasId is not null %}
+    <div class="formcont">
+        <form method="post" class="form-inline">
+            <div class="form-group">
+                <label for="new_cat">Nieuwe naam voor de categorie:  </label>
+                <input type="text" name="newomschrijving" id="new_cat" class="form-control" value="{{omschrijving}}" placeholder="categorienaam" />
+                <input type="submit" name="aansub" class="form-control" />
+            </div>
+        </form>
+    </div>
+{% else %}
+    <div>
+        <div class="tablecont">
+            <table class="table">
+                <tr>
+                    <th>Omschrijving</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for cat in categorien %}
+                    <tr>
+                        <td>{{cat[1]}}</td>
+                        <td><a href="?pasaan={{cat[0]}}">Aanpassen</a></td>
+                        <td><a href="?verwijder={{cat[0]}}">Verwijderen</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="formcont">
+        <form method="post" class="form-inline">
+            <div class="form-group">
+                <label for="new_cat">Voeg een nieuwe categorie toe: </label>
+                <input type="text" name="newcatnaam" id="new_cat" class="form-control" placeholder="categorienaam" />
+                <input type="submit" name="newcat" class="form-control" />
+            </div>
+        </form>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock content %}

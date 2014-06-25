@@ -30,6 +30,27 @@ class ProductDao {
         }
     }
     
+    public static function geefProductenVanCat($catid){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $res = array();
+        $sql = "Select id from producten where categorieid = :catid";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":catid",$catid);
+        if($stmt->execute()){
+            $dataSet = $stmt->fetchAll();
+            foreach($dataSet as $rij){
+                array_push($res, $rij["id"]);
+            }
+            if(!$res){
+                return false;
+            }else{
+                return $res;
+            }
+        }else{
+            print_r($stmt->errorInfo());
+        }
+    }
+    
     public static function geefProductMetId($id){
         /*
          * return Product() object van het meegegeven id
@@ -130,6 +151,33 @@ class ProductDao {
         $stmt->bindParam(":omschrijving",$catOmschrijving);
         if($stmt->execute()){
             return true;
+        }else{
+            print_r($stmt->errorInfo());
+            return false;
+        }
+    }
+    
+    public static function deleteCat($catId){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "Delete from categorien where id = :id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":id",$catId);
+        if($stmt->execute()){
+            return true;
+        }else{
+            print_r($stmt->errorInfo());
+            return false;
+        }
+    }
+    
+    public static function geefCatOmschrijvingMetId($catId){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "Select omschrijving from categorien where id = :id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":id",$catId);
+        if($stmt->execute()){
+            $rij = $stmt->fetch();
+            return $rij["omschrijving"];
         }else{
             print_r($stmt->errorInfo());
             return false;

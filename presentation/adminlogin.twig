@@ -6,6 +6,30 @@
         <link rel="stylesheet" href="presentation/css/pizza.css" />
     </head>
     <body>
-        {% include 'loginWindow2.twig' %}
+        <div class="maincontainer clearFix">
+            {% if adminisin %}
+                {% include 'logoutWindow2.twig' %}
+                
+                <div class=hoofding>
+                    <h1>Administratie pizzashop</h1>
+                </div>
+                <div class="menu">
+                    <ul class="nav nav-pills">
+                        <li><a href="a_categorien.php">Categorien</a></li>
+                        <li><a href="a_producten.php">Producten</a></li>
+                        <li><a href="a_bestellingen.php">Bestellingen</a></li>
+                        <li><a href="a_klanten.php">Klanten</a></li>
+                        <li><a href="a_accounts.php">Administrators</a></li>
+                    </ul>
+                </div>
+                {% block content %}
+                <div>
+                    Klik op een item om verder te gaan.
+                </div>
+                {% endblock content %}
+            {% else %}
+                {% include 'loginWindow2.twig' %}
+            {% endif %}
+        </div>
     </body>
 </html>

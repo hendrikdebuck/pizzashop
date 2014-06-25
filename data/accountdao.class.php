@@ -58,7 +58,7 @@ class AccountDao {
      
      public static function adminLogin($login, $pw){
          $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
-         $sql = "Select id from accounts where login = :login && paswoord = :pw && isgeblokkeerd = false & isbeheerder = true";
+         $sql = "Select id from accounts where login = :login && paswoord = :pw && isgeblokkeerd = false && isbeheerder = true";
          $stmt = $dbh->prepare($sql);
          $stmt->bindParam(":login", $login);
          $stmt->bindParam(":pw", $pw);

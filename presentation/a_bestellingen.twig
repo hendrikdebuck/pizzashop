@@ -1,0 +1,65 @@
+{% extends "adminlogin.twig" %}
+
+{% block content %}
+{% if bekijkBestelling is defined and bekijkBestelling is not null %}
+    <table class="table">
+        <tr>
+            <th>Klant</th>
+            <th>Besteld</th>
+            <th>Gewenst</th>
+            <th>Status</th>
+            <th>Extra korting</th>
+        </tr>
+        <tr>
+            <td>{{bekijkBestelling.klant.naam}} {{bestel.klant.vnaam}}</td>
+            <td>{{bekijkBestelling.besteld}}</td>
+            <td>{{bekijkBestelling.gewenst}}</td>
+            <td>{{bekijkBestelling.status}}</td>
+            <td>{{bekijkBestelling.extraKorting}}</td>
+        </tr>
+    </table>
+    <h3>Items</h3>
+    <table class="table">
+        <tr>
+            <th>Product</th>
+            <th>Aantal</th>
+            <th>Korting</th>
+        </tr>
+        {% for regel in regels %}
+        <tr>
+            <td>{{regel.product.naam}} {{bestel.klant.vnaam}}</td>
+            <td>{{regel.aantal}}</td>
+            <td>{{regel.korting}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <div>
+        <div class="tablecont">
+            <table class="table">
+                <tr>
+                    <th>Klant</th>
+                    <th>Besteld</th>
+                    <th>Gewenst</th>
+                    <th>Status</th>
+                    <th>Extra korting</th>
+                    <th></th>
+                </tr>
+                {% for bestel in bestellingen %}
+                    <tr>
+                        <td>{{bestel.klant.naam}} {{bestel.klant.vnaam}}</td>
+                        <td>{{bestel.besteld}}</td>
+                        <td>{{bestel.gewenst}}</td>
+                        <td>{{bestel.status}}</td>
+                        <td>{{bestel.extraKorting}}</td>
+                        <td><a href="?bekijk={{bestel.id}}">Bekijken</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        
+    </div>
+{% endif %}
+
+{% endblock content %}

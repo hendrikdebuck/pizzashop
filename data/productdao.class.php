@@ -143,12 +143,49 @@ class ProductDao {
         }
     }
     
+    public static function voegNieuwProductToe($product){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "Insert into producten (naam, omschrijving, prijs, categorieId, korting, isActief) values (:naam, :omschrijving, :prijs, :categorieId, :korting, :isActief)";
+        $stmt = $dbh->prepare($sql);
+        $actief = 1;
+        $stmt->bindParam(":naam", $product->getNaam());
+        $stmt->bindParam(":omschrijving",$product->getOmschrijving() );
+        $stmt->bindParam(":prijs",$product->getBasisPrijs() );
+        $stmt->bindParam(":categorieId",$product->getCatId() );
+        $stmt->bindParam(":korting",$product->getKorting() );
+        $stmt->bindParam(":isActief", $actief);
+        if($stmt->execute()){
+            return $dbh->lastInsertId();
+        }else{
+            print_r($stmt->errorInfo());
+            return null;
+        }
+    }
+    
     public static function updateCategorie($catId, $catOmschrijving){
         $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
         $sql = "Update categorien set omschrijving = :omschrijving where id = :id";
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(":id",$catId);
         $stmt->bindParam(":omschrijving",$catOmschrijving);
+        if($stmt->execute()){
+            return true;
+        }else{
+            print_r($stmt->errorInfo());
+            return false;
+        }
+    }
+    
+    public static function updateProduct($product){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "Update producten set omschrijving = :omschrijving , naam = :naam, prijs = :prijs, categorieId = :catid, korting = :korting where id = :id";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":id",$product->getId());
+        $stmt->bindParam(":omschrijving",$product->getOmschrijving());
+        $stmt->bindParam(":naam",$product->getNaam());
+        $stmt->bindParam(":catid",$product->getCatId());
+        $stmt->bindParam(":prijs",$product->getBasisPrijs());
+        $stmt->bindParam(":korting",$product->getKorting());
         if($stmt->execute()){
             return true;
         }else{

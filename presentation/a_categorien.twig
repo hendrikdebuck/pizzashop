@@ -1,7 +1,7 @@
 {% extends "adminlogin.twig" %}
 
 {% block content %}
-{% if aanpasId is not null %}
+{% if aanpasId is defined and aanpasId is not null %}
     <div class="formcont">
         <form method="post" class="form-inline">
             <div class="form-group">

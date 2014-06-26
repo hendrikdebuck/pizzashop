@@ -3,6 +3,7 @@
 require_once("entities/bestelregel.class.php");
 require_once("entities/pizza.class.php");
 require_once("entities/extra.class.php");
+require_once("data/productdao.class.php");
 class BestelregelDao {
     public static function voegBestelregelToe($bestelRegel, $bestellingId){
         $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
@@ -34,6 +35,30 @@ class BestelregelDao {
             return true;
         }else{
             print_r($stmt->errorInfo());
+        }
+    }
+    
+    public static function geefBestelRegelsVanBestelId($bestId){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $res = array();
+        $sql = "Select bestelregelid, productId, aantal, kortingOpBestelregel from bestelregels where bestellingsId = :bestelId";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":bestelId",$bestId);
+        if($stmt->execute()){
+            $dataSet = $stmt->fetchAll();
+            foreach($dataSet as $rij){
+                $tempRegel = new Bestelregel();
+                $tempRegel->setId($rij["bestelregelid"]);
+                $tempRegel->setAantal($rij["aantal"]);
+                $tempRegel->setKorting($rij["kortingOpBestelregel"]);
+                
+                $tempRegel->setProduct(ProductDao::geefProductMetId($rij["productId"]));
+                array_push($res, $tempRegel);
+            }
+            return $res;
+        }else{
+            print_r($stmt->errorInfo());
+            return false;
         }
     }
     

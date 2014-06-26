@@ -1,0 +1,103 @@
+{% extends "adminlogin.twig" %}
+
+{% block content %}
+{% if modiProd is defined and modiProd is not null %}
+    <div class="formcontproduct">
+        <form method="post">
+            <form method="post">
+            <div class="form-group">
+                <label for="new_naam">Naam: </label>
+                <input type="text" name="newprodnaam" id="new_cat" class="form-control" placeholder="Naam" value="{{modiProd.Naam}}" />
+                
+            </div>
+            <div class="form-group">
+                <label for="new_omschrijving">Omschrijving: </label>
+                <input type="text" name="newprodomschrijving" id="new_cat" class="form-control" placeholder="Omschrijving" value="{{modiProd.Omschrijving}}"  />
+            </div>
+            <div class="form-group">
+                <label for="new_prijs">Prijs: </label>
+                <input type="text" name="newprodprijs" id="new_cat" class="form-control" placeholder="Prijs zonder korting" value="{{modiProd.basisPrijs}}"  />
+            </div>
+            <div class="form-group">
+                <label for="new_korting">Korting: </label>
+                <input type="text" name="newprodkorting" id="new_cat" class="form-control" placeholder="Korting" value="{{modiProd.korting}}"  />
+            </div>
+            <div class="form-group">
+                <label for="new_cat">Categorie: </label>
+                <select class="form-control" id="new_cat" name="newprodcatid">
+                    {% for cat in categorien %}
+                        <option value="{{cat[0]}}" {% if modiProd.catId == cat[0] %} selected {% endif %}>{{cat[1]}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="pasaan" value="{{modiProd.id}}" />
+                <input type="submit" name="produpdate" class="form-control" />
+            </div>
+        </form>
+        </form>
+    </div>
+{% else %}
+    <div>
+        <div class="tablecont">
+            <table class="table">
+                <tr>
+                    <th>Naam</th>
+                    <th>Omschrijving</th>
+                    <th>Prijs</th>
+                    <th>Korting</th>
+                    <th>Categorie</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for prod in producten %}
+                    <tr>
+                        <td>{{prod.naam}}</td>
+                        <td>{{prod.omschrijving}}</td>
+                        <td>{{prod.basisPrijs}}</td>
+                        <td>{{prod.korting}}</td>
+                        <td>{{prod.catOmschrijving}}</td>
+                        <td><a href="?pasaan={{prod.id}}">Aanpassen</a></td>
+                        <td><a href="?verwijder={{prod.id}}">Verwijderen</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="formcontproduct">
+            <h3>Nieuw product toevoegen: </h3>
+        <form method="post">
+            <div class="form-group">
+                <label for="new_naam">Naam: </label>
+                <input type="text" name="newprodnaam" id="new_cat" class="form-control" placeholder="Productnaam" />
+                
+            </div>
+            <div class="form-group">
+                <label for="new_omschrijving">Omschrijving: </label>
+                <input type="text" name="newprodomschrijving" id="new_cat" class="form-control" placeholder="Omschrijving" />
+            </div>
+            <div class="form-group">
+                <label for="new_prijs">Prijs: </label>
+                <input type="text" name="newprodprijs" id="new_cat" class="form-control" placeholder="Prijs zonder korting" />
+            </div>
+            <div class="form-group">
+                <label for="new_korting">Korting: </label>
+                <input type="text" name="newprodkorting" id="new_cat" class="form-control" placeholder="Korting" />
+            </div>
+            <div class="form-group">
+                <label for="new_cat">Categorie: </label>
+                <select class="form-control" id="new_cat" name="newprodcatid">
+                    {% for cat in categorien %}
+                        <option value="{{cat[0]}}">{{cat[1]}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" name="newprod" class="form-control" />
+            </div>
+        </form>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock content %}

@@ -8,6 +8,12 @@ require_once("libs/Twig/Autoloader.php");
 
 require("helpers/adminChecker.php");
 
+if(isset($_POST["updatestatus"]) && $_POST["updatestatus"]){
+    if(isset($_POST["newstatus"]) && $_POST["newstatus"]){
+        print("both set");
+        WinkelmandDAO::updateStatusVanBestellingMetId($_GET["bekijk"], $_POST["newstatus"]);
+    }
+}
 
 if(isset($_GET["bekijk"]) && $_GET["bekijk"] >= 0){
     $bestellingen = null;

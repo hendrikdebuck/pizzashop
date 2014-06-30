@@ -1,7 +1,7 @@
 <?php
 //includes
 require_once("entities/bestelregel.class.php");
-require_once("entities/pizza.class.php");
+require_once("data/pizzadao.class.php");
 require_once("entities/extra.class.php");
 require_once("data/productdao.class.php");
 class BestelregelDao {
@@ -51,8 +51,13 @@ class BestelregelDao {
                 $tempRegel->setId($rij["bestelregelid"]);
                 $tempRegel->setAantal($rij["aantal"]);
                 $tempRegel->setKorting($rij["kortingOpBestelregel"]);
-                
-                $tempRegel->setProduct(ProductDao::geefProductMetId($rij["productId"]));
+                $tempProd = ProductDao::geefProductMetId($rij["productId"]);
+                if($tempProd->getCatOmschrijving() == "Pizza"){
+                    //pizza
+                    $tempProd = PizzaDao::getPizzaById($rij["productId"]);
+                    $tempProd->setArrExtras(PizzaDao::geefAlleExtrasVanBesteldePizzaByBestelregelId($rij["bestelregelid"]));
+                }
+                $tempRegel->setProduct($tempProd);
                 array_push($res, $tempRegel);
             }
             return $res;
@@ -61,6 +66,8 @@ class BestelregelDao {
             return false;
         }
     }
+    
+    
     
 }
 ?>

@@ -74,5 +74,20 @@ class WinkelmandDAO {
             return false;
         }
     }
+    
+    public static function updateStatusVanBestellingMetId($bestelId, $newstatus){
+        $dbh = new PDO(Info::$dbinfo,Info::$dbusername, Info::$dbpw);
+        $sql = "update bestellingen set status = :status where id = :id ";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":status", $newstatus);
+        $stmt->bindParam(":id", $bestelId );
+
+        if($stmt->execute()){
+            return true;
+        }else{
+            print_r($stmt->errorInfo());
+            return false;
+        }
+    }
 }
 ?>

@@ -20,6 +20,10 @@ class KlantDao {
             
             foreach($dataSet as $rij){
                 $klant = new Klant($rij["accid"], $rij["login"], $rij["pw"],$rij["klantid"], $rij["naam"], $rij["voornaam"], $rij["adres"], $rij["postcode"], $rij["gemeente"], $rij["pizzateller"], $rij["blokkering"]);
+                $klant->setEmail($rij["email"]);
+                $klant->setBtwNr($rij["btwnr"]);
+                $klant->setTelefoon($rij["telefoon"]);
+                $klant->setOpmerkingen($rij["opmerkingen"]);
                 //print("klant af");
                 array_push($res, $klant);
             }

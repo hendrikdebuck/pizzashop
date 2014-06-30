@@ -1,0 +1,39 @@
+{% extends "adminlogin.twig" %}
+
+{% block content %}
+
+    <div class="tablecont">
+        <table class="table">
+            <tr>
+                <th>Naam</th>
+                <th>Voornaam</th>
+                <th>Adres</th>
+                <th>Gemeente</th>
+                <th>btwnr</th>
+                <th>telefoon</th>
+                <th>email</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {% for klant in klanten %}
+                <tr>
+                    <td>{{klant.naam}}</td>
+                    <td>{{klant.vnaam}}</td>
+                    <td>{{klant.adres}}</td>
+                    <td>{{klant.gemeente}}</td>
+                    <td>{{klant.btwNr}}</td>
+                    <td>{{klant.telefoon}}</td>
+                    <td>{{klant.email}}</td>
+                    <td><a href="?pasaan={{prod.id}}">Aanpassen</a></td>
+                    <td><a href="?verwijder={{prod.id}}">Blokkeren</a></td>
+                </tr>
+                {% if klant.opmerkingen is not empty %}
+                <tr>
+                    <td colspan="9">{{klant.opmerkingen}}</td>
+                </tr>
+                {% endif%}
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
